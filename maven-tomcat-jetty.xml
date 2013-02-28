@@ -2,27 +2,28 @@
 <document>
   <!-- en-tete d'article -->
   <entete>
-    <rubrique>4</rubrique>
-    <meta>
-      <description>Développement Web avec Maven tomcat et Jetty</description>
-      <keywords>maven, tomcat, jetty, jspc</keywords>
-    </meta>
-    <titre>
-      <page>Développement Web avec Maven</page>
-      <article>Développement Web avec Maven tomcat et Jetty</article>
-    </titre>
-    <date>2013-02-26</date>
-    <licauteur>Hugo Lassiège</licauteur>
-    <lictype>2</lictype>
-    <licannee>2013</licannee>
-    <serveur>hugo123-http</serveur>
-    <chemin>tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty</chemin>
-    <urlhttp>http://hugo.developpez.com/tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty/</urlhttp>
-    <pdf>
-      <sautDePageAvantSection>0</sautDePageAvantSection>
-      <notesBasPage>PageCourante</notesBasPage>
-    </pdf>
-  </entete>
+		<rubrique>4</rubrique>
+		<meta>
+			<description>Développement Web avec Maven tomcat et Jetty</description>
+			<keywords>maven, tomcat, jetty, jspc</keywords>
+		</meta>
+		<titre>
+			<page>Développement Web avec Maven</page>
+			<article>Développement Web avec Maven tomcat et Jetty</article>
+		</titre>
+		<date>2013-02-26</date>
+		<google-analytics>UA-38340412-1</google-analytics>
+		<licauteur>Hugo Lassiège</licauteur>
+		<lictype>2</lictype>
+		<licannee>2013</licannee>
+		<serveur>hugo123-http</serveur>
+		<chemin>tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty</chemin>
+		<urlhttp>http://hugo.developpez.com/tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty/</urlhttp>
+		<pdf>
+			<sautDePageAvantSection>0</sautDePageAvantSection>
+			<notesBasPage>PageCourante</notesBasPage>
+		</pdf>
+	</entete>
   <!-- description des auteurs -->
   <authorDescriptions>
     <authorDescription name="hugo123" role="auteur">
