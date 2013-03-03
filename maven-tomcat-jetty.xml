@@ -2,28 +2,28 @@
 <document>
   <!-- en-tete d'article -->
   <entete>
-		<rubrique>4</rubrique>
-		<meta>
-			<description>Développement Web avec Maven tomcat et Jetty</description>
-			<keywords>maven, tomcat, jetty, jspc</keywords>
-		</meta>
-		<titre>
-			<page>Développement Web avec Maven</page>
-			<article>Développement Web avec Maven tomcat et Jetty</article>
-		</titre>
-		<date>2013-02-26</date>
-		<google-analytics>UA-38340412-1</google-analytics>
-		<licauteur>Hugo Lassiège</licauteur>
-		<lictype>2</lictype>
-		<licannee>2013</licannee>
-		<serveur>hugo123-http</serveur>
-		<chemin>tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty</chemin>
-		<urlhttp>http://hugo.developpez.com/tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty/</urlhttp>
-		<pdf>
-			<sautDePageAvantSection>0</sautDePageAvantSection>
-			<notesBasPage>PageCourante</notesBasPage>
-		</pdf>
-	</entete>
+        <rubrique>4</rubrique>
+        <meta>
+            <description>Développement Web avec Maven tomcat et Jetty</description>
+            <keywords>maven, tomcat, jetty, jspc</keywords>
+        </meta>
+        <titre>
+            <page>Développement Web avec Maven</page>
+            <article>Développement Web avec Maven Tomcat et Jetty</article>
+        </titre>
+        <date>2013-02-26</date>
+        <google-analytics>UA-38340412-1</google-analytics>
+        <licauteur>Hugo Lassiège</licauteur>
+        <lictype>2</lictype>
+        <licannee>2013</licannee>
+        <serveur>hugo123-http</serveur>
+        <chemin>tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty</chemin>
+        <urlhttp>http://hugo.developpez.com/tutoriels/java/developpement-web-avec-maven-tomcat-et-jetty/</urlhttp>
+        <pdf>
+            <sautDePageAvantSection>0</sautDePageAvantSection>
+            <notesBasPage>PageCourante</notesBasPage>
+        </pdf>
+    </entete>
   <!-- description des auteurs -->
   <authorDescriptions>
     <authorDescription name="hugo123" role="auteur">
@@ -39,31 +39,31 @@
   <!-- résumé très bref de l'article affiché dans le cadre bleu en tête de page-->
   <synopsis>
     <paragraph>
-	Cet article fait partie d'une série d'articles autour de l'industrialisation du développement Java avec Maven. 
-	Dans cette série je m'attarderais sur les astuces et bonnes pratiques permettant de gagner du temps et de standardiser vos développements.
-	De plus tout <link href="https://github.com/hlassiege/maven-tomcat-jetty">le code de l'article</link> ainsi que l'article lui-même sont disponibles sous github pour permettre à chacun de contribuer à tenir 
-	ces articles à jour.
-		</paragraph>
+    Cet article fait partie d'une série d'articles autour de l'industrialisation du développement Java avec Maven. 
+    Dans cette série je m'attarderais sur les astuces et bonnes pratiques permettant de gagner du temps et de standardiser vos développements.
+    De plus tout <link href="https://github.com/hlassiege/maven-tomcat-jetty">le code de l'article</link> ainsi que <link href="https://github.com/hlassiege/art-maven-tomcat-jetty">l'article lui-même</link> sont disponibles sous github pour permettre à chacun de contribuer à tenir 
+    ces articles à jour.
+        </paragraph>
     <paragraph>
-Pour cet article je vous propose de faire le point sur les plugin permettant de jouer avec tomcat et jetty. 
+Pour cet article je vous propose de faire le point sur les plugin permettant de jouer avec Tomcat et Jetty. 
 Ces plugins très pratiques vous permettront :
-		</paragraph>
+        </paragraph>
     <liste sautDePagePdf="0">
-      <element>de démarrer un tomcat/jetty sans effort en phase de dev</element>
+      <element>de démarrer un Tomcat/Jetty sans effort en phase de dev</element>
       <element>de configurer vos logs</element>
       <element>de paramétrer une datasource jndi pour votre conteneur et d'initialiser votre schéma</element>
       <element>de débugguer une application web dans votre IDE préféré</element>
       <element>de compiler vos jsp avant déploiement</element>
     </liste>
     <paragraph>
-			Et voici les plugins qui vont nous intéresser :	
-		</paragraph>
+            Et voici les plugins qui vont nous intéresser :    
+        </paragraph>
     <liste sautDePagePdf="0">
       <element>
         <link href="http://tomcat.apache.org/maven-plugin-2.0/tomcat7-maven-plugin/index.html">maven-tomcat-plugin</link>
       </element>
       <element><link href="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin">maven-jetty-plugin</link> </element>
-      <element>maven-jspc-plugin pour <link href="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Jspc+Plugin">jetty</link> et pour <link href="http://mojo.codehaus.org/jspc-maven-plugin/usage.html">tomcat</link></element>
+      <element>maven-jspc-plugin pour <link href="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Jspc+Plugin">Jetty</link> et pour <link href="http://mojo.codehaus.org/jspc-maven-plugin/usage.html">Tomcat</link></element>
       <element>
         <link href="http://mojo.codehaus.org/sql-maven-plugin/">maven-sql-plugin</link>
       </element>
@@ -77,130 +77,137 @@ Ces plugins très pratiques vous permettront :
     <section id="I">
       <title>Introduction</title>
       <paragraph>
-				Mais pourquoi ces plugins plutot qu'un simple Tomcat installé sur un répertoire à part ?
-L'objectif de ces plugins est multiple :
-			</paragraph>
+        Tout d'abord, première question qui peut vous venir à l'esprit : 
+    </paragraph>
+            <citation>
+            Mais pourquoi ces plugins plutot qu'un simple Tomcat installé sur un répertoire à part ?    
+            </citation>
+    
+    <paragraph>
+        L'objectif de ces plugins est multiple :
+    </paragraph>
       <liste sautDePagePdf="0">
         <element>accélérer votre cycle de développement</element>
         <element>centraliser dans votre code source une configuration qui marche </element>
       </liste>
       <paragraph>
-				En alternative vous auriez pu :
-			</paragraph>
+                En alternative vous auriez pu :
+            </paragraph>
       <liste sautDePagePdf="0">
-        <element>installer tomcat</element>
-        <element>préconfigurer tomcat pour acceuillir votre application</element>
+        <element>installer Tomcat</element>
+        <element>préconfigurer Tomcat pour acceuillir votre application</element>
         <element>copier le fichier war généré dans le répertoire webapps </element>
       </liste>
       <paragraph>
-				Cette stratégie est fastidieuse, interrompt votre cycle de développement et nécessite que vous préconfiguriez votre conteneur Tomcat de la même facon pour tout le monde dans l'équipe.
-			</paragraph>
+                Cette stratégie est fastidieuse, interrompt votre cycle de développement et nécessite que vous préconfiguriez votre conteneur Tomcat de la même facon pour tout le monde dans l'équipe.
+            </paragraph>
       <paragraph>
-				Une variation de la méthode ci-dessus aurait été de faire pointer un fichier de contexte d'un Tomcat préinstallé sur vos sources.
-				Celà évite la copie du fichier mais pas la nécessité d'avoir un tomcat préconfiguré et uniforme sur toutes les machines.
-			</paragraph>
+                Une variation de la méthode ci-dessus aurait été de faire pointer un fichier de contexte d'un Tomcat préinstallé sur vos sources.
+                Celà évite la copie du fichier mais pas la nécessité d'avoir un Tomcat préconfiguré et uniforme sur toutes les machines.
+            </paragraph>
       <paragraph>
-				Une autre variante consiste à utiliser le plugin WTP d'Eclipse. Là encore, il y a un effort de configuration à refaire sur chaque poste. 
-			</paragraph>
+                Une autre variante consiste à utiliser le plugin WTP d'Eclipse. Là encore, il y a un effort de configuration à refaire sur chaque poste. 
+            </paragraph>
       <paragraph>
-				Ici nous allons insister sur un principe simple et pourtant fondamental en informatique : <link href="http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas">DRY</link> (don't repeat yourself)
+                Ici nous allons insister sur un principe simple et pourtant fondamental en informatique : <link href="http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas">DRY</link> (don't repeat yourself)
 Si vous devez reconfigurer votre environnement de travail pour chaque nouvel arrivant, c'est de la perte de temps.
-			</paragraph>
+            </paragraph>
       <imgtext type="info">
-				Checkout and Run : Notre objectif sera donc qu'un nouvel arrivant sur un projet n'ait qu'a cloner le repository et puisse être tout de suite opérationnel.
-			</imgtext>
+                Checkout and Run : Notre objectif c'est qu'un nouvel arrivant sur un projet n'ait qu'a cloner le repository et puisse être tout de suite opérationnel.
+            </imgtext>
     </section>
-			<section id="II">
-				<title>Configuration de base</title>
-			<section id="II-A">
-				<title>Tomcat</title>
-				<paragraph>
-					Commençons par la configuration de base de cet article. Le code est disponible sous github. 
-Le seul point d'attention pour l'instant c'est que nous allons déclarer le plugin tomcat dans le fichier pom.xml dans la section build -> pluginManagement :
-				</paragraph>
+            <section id="II">
+                <title>Configuration de base</title>
+            <section id="II-A">
+                <title>Tomcat</title>
+                <paragraph>
+                    Commençons par la configuration de base de cet article. 
+                    Démarrons par le projet <link href="https://github.com/hlassiege/maven-tomcat-jetty/tree/master/1.developpez-webapp">1.developpez-webapp</link>. 
+Le seul point d'attention pour l'instant c'est que nous allons déclarer le plugin Tomcat dans le fichier pom.xml dans la section build -> pluginManagement :
+                </paragraph>
 <code langage="xml"><![CDATA[
-  <plugin>
+        <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat7-maven-plugin</artifactId>
           <version>2.0</version>
         </plugin>
 ]]></code>
-				<paragraph>
-					Ensuite, il vous suffit de lancer la commande suivante : 
-				</paragraph>
+                <paragraph>
+                    Ensuite, il vous suffit de lancer la commande suivante : 
+                </paragraph>
 <code langage="bash"><![CDATA[
 mvn tomcat7:run 
 ]]></code>
-				
-				<paragraph>
-					Vous devriez obtenir le résultat suivant :
-				</paragraph>
-				<image src="./images/tomcatstart.png"/>
-				<paragraph>
-					Pour résumer, le conteneur tomcat est automatiquement téléchargé puis démarré avec le contenu de votre application web. 
+                
+                <paragraph>
+                    Vous devriez obtenir le résultat suivant :
+                </paragraph>
+                <image src="./images/tomcatstart.png"/>
+                <paragraph>
+                    Pour résumer, le conteneur Tomcat est automatiquement téléchargé puis démarré avec le contenu de votre application web. 
 Le port par défaut est le 8080 et le contexte correspond au nom de votre artefact, vous pouvez donc vous connecter sur : 
-				</paragraph>
-				<paragraph>
-					<link href="http://localhost:8080/developpez-webapp/">http://localhost:8080/developpez-webapp/</link>
-				</paragraph>
-				<paragraph>
-					Ici rien de magique, l'application est juste constituée d'un fichier html statique. 
-				</paragraph>
+                </paragraph>
+                <paragraph>
+                    <link href="http://localhost:8080/developpez-webapp/">http://localhost:8080/developpez-webapp/</link>
+                </paragraph>
+                <paragraph>
+                    Ici rien de magique, l'application est juste constituée d'un fichier html statique. 
+                </paragraph>
 
-				
-			</section>
-				<section id="II-B">
-					<title>Jetty</title>
-				<paragraph>
-					Si vous préférez Jetty, la même configuration pour lancer votre conteneur préféré sera sensiblement très proche : 
-				</paragraph>
+                
+            </section>
+                <section id="II-B">
+                    <title>Jetty</title>
+                <paragraph>
+                    Si vous préférez Jetty, la même configuration pour lancer votre conteneur préféré sera sensiblement très proche : 
+                </paragraph>
 <code langage="xml"><![CDATA[
-   <plugin>
+          <plugin>
               <groupId>org.mortbay.jetty</groupId>
               <artifactId>jetty-maven-plugin</artifactId>
               <version>8.1.5.v20120716</version>
           </plugin>
 ]]></code>
-				<paragraph>
-					puis la commande 
-				</paragraph>
+                <paragraph>
+                    puis la commande 
+                </paragraph>
 <code langage="bash"><![CDATA[
 mvn jetty:run
 ]]></code>
-				<paragraph>
-					Par défaut le plugin démarre votre application sur le contexte / 
+                <paragraph>
+                    Par défaut le plugin démarre votre application sur le contexte / 
 L'url pour y accéder est donc :
-				</paragraph>
-				<paragraph>
-					<link href="http://localhost:8080">http://localhost:8080</link>
-				</paragraph>
-				<paragraph>
-					On remarquera pour le troll que le démarrage avec jetty est légèrement plus rapi
-				</paragraph>
-				</section>
-			</section>
-			<section id="III">
-				<title>Les logs</title>
-			<paragraph>
-				Un des aspects les plus importants d'une application c'est qu'elle nous dise ce qu'elle fait. 
-			</paragraph>
-			<paragraph>
-				Disons que vous ayez vos habitudes avec <link href="http://logback.qos.ch/">logback</link> et que vous souhaitiez l'utiliser ici.
-			</paragraph>
-			<paragraph>
-				Pour que ce soit intéressant nous allons ajouter un service REST construit avec jaxrs sinon en dehors des logs de Tomcat nous n'allons pas avoir beaucoup à dir
-			</paragraph>
-			<imgtext type="info">
-				Note : Pour créer mon hello world j'ai utilisé la commande <b>mvn archetype:generate</b> une autre commande très utile pour démarrer avec un bon squelette d'application
-			</imgtext>
-			<paragraph>
-				Le code est présent dans le répertoire <b>2.developpez-webapp-jaxrs</b> et nous ne décrirons pas l'application jaxrs.
-			</paragraph>
-			<paragraph>
-				Rajoutons les dépendances pour les logs :
-			</paragraph>
+                </paragraph>
+                <paragraph>
+                    <link href="http://localhost:8080">http://localhost:8080</link>
+                </paragraph>
+                <paragraph>
+                    On remarquera pour le troll que le démarrage avec Jetty est légèrement plus rapide.
+                </paragraph>
+                </section>
+            </section>
+            <section id="III">
+                <title>Les logs</title>
+            <paragraph>
+                Un des aspects les plus importants d'une application c'est qu'elle nous dise ce qu'elle fait. 
+            </paragraph>
+            <paragraph>
+                Disons que vous ayez vos habitudes avec <link href="http://logback.qos.ch/">logback</link> et que vous souhaitiez l'utiliser ici.
+            </paragraph>
+            <paragraph>
+                Pour que ce soit intéressant nous allons ajouter un service <link href="http://fr.wikipedia.org/wiki/Representational_State_Transfer">REST</link> construit avec jaxrs sinon en dehors des logs de Tomcat nous n'allons pas avoir beaucoup à dire
+            </paragraph>
+            <imgtext type="info">
+                Note : Pour créer mon Hello World j'ai utilisé la commande <b>mvn archetype:generate</b> une autre commande très utile pour démarrer avec un bon squelette d'application
+            </imgtext>
+            <paragraph>
+                Le code est présent dans le répertoire <link href="https://github.com/hlassiege/maven-tomcat-jetty/tree/master/2.developpez-webapp-jaxrs"><b>2.developpez-webapp-jaxrs</b></link> et nous ne décrirons pas l'application jaxrs.
+            </paragraph>
+            <paragraph>
+                Rajoutons les dépendances pour les logs :
+            </paragraph>
 <code langage="xml"><![CDATA[
-    <!-- Logging -->
+        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -222,27 +229,27 @@ L'url pour y accéder est donc :
             <version>1.0.9</version>
         </dependency>
 ]]></code>
-			<paragraph>
-				Si on démarre avec <b>mvn tomcat7:run</b> ou <b>mvn jetty:run</b> on remarque que notre application devient très bavarde. Cependant nous avons tous nos logs en DEBUG ce qui n'est pas toujours pratique.
-			</paragraph>
-			<paragraph>
-				Ajoutons une propriété système à utiliser au démarrage pour nos plugins jetty et tomcat afin de configurer les logs avec un fichier de configuration :
-			</paragraph>
-			<paragraph>
-				Pour le plugin tomcat :
-			</paragraph>
+            <paragraph>
+                Si on démarre avec <b>mvn tomcat7:run</b> ou <b>mvn jetty:run</b> on remarque que notre application devient très bavarde. Cependant nous avons tous nos logs en DEBUG ce qui n'est pas toujours pratique.
+            </paragraph>
+            <paragraph>
+                Ajoutons une propriété système à utiliser au démarrage pour nos plugins Jetty et Tomcat afin de configurer les logs avec un fichier de configuration :
+            </paragraph>
+            <paragraph>
+                Pour le plugin Tomcat :
+            </paragraph>
 <code langage="xml"><![CDATA[
-  <configuration>
+           <configuration>
                 <systemProperties>
-<logback.configurationFile>src/test/resources/logback.xml</logback.configurationFile>
+                    <logback.configurationFile>src/test/resources/logback.xml</logback.configurationFile>
                 </systemProperties>
             </configuration>
 ]]></code>
-			<paragraph>
-				Pour le plugin jetty c'est un tout petit peu plus verbeux :
-			</paragraph>
+            <paragraph>
+                Pour le plugin Jetty c'est un tout petit peu plus verbeux :
+            </paragraph>
 <code langage="xml"><![CDATA[
-  <configuration>
+              <configuration>
                   <systemProperties>
                       <systemProperty>
                           <name>logback.configurationFile</name>
@@ -251,60 +258,114 @@ L'url pour y accéder est donc :
                   </systemProperties>
               </configuration>
 ]]></code>
-			<paragraph>
-				avec notre fichier de configuration pour logback (TODO lien github)
-			</paragraph>
-			<paragraph>
-				<i>Et voilà</i>, désormais notre application est en mode INFO.
+            <paragraph>
+                avec notre <link href="https://github.com/hlassiege/maven-tomcat-jetty/blob/master/2.developpez-webapp-jaxrs/src/test/resources/logback.xml">fichier de configuration pour logback</link> :
+            </paragraph>
+<code langage="xml"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+]]></code>
+            
+            <paragraph>
+                <i>Et voilà</i>, désormais notre application est en mode INFO.
 Petit bonus, vous remarquerez que nous avons configuré le rechargement automatique du fichier de log avec l'attribut scan=true dans le fichier précédent.
 Vous pouvez donc changer la configuration de vos logs à la volée pendant que l'application tourne.
-			</paragraph>
-			
-			
-			</section>
-			<section id="IV">
-				<title>Configurer une datasource</title>
-			<paragraph>
-				Un autre besoin qui revient régulièrement c'est celui de pouvoir configurer une datasource sur le conteneur sous forme de ressources JNDI. 
+            </paragraph>
+            
+            
+            </section>
+            <section id="IV">
+                <title>Configurer une datasource</title>
+            <paragraph>
+                Un autre besoin qui revient régulièrement c'est celui de pouvoir configurer une datasource sur le conteneur sous forme de ressources JNDI. 
 Ici nous allons utiliser plusieurs astuces :
-			</paragraph>
-			<liste sautDePagePdf="0">
-				<element>une datasource avec une base de données embarqué H2</element>
-				<element>l'utilisation du plugin maven-sql pour initialiser notre schéma (*)</element>
-			</liste>
-			<paragraph>
-				Le code se trouve dans le répertoire 3.developpez-webapp-jndi
-			</paragraph>
-			<imgtext type="info">
-				(*) Si vous utilisez JPA avec Hibernate vous pouvez aussi créer votre schéma automatiquement via la directive create-schema. Nous ne verrons pas ce point ici ce qui nous permet de continuer à illustrer des plugins maven.
-			</imgtext>
-			<section id="IV-A">
-				<title>Tomcat</title>
-				<paragraph>
-					Tout d'abord nous allons configurer le plugin maven pour utiliser un fichier server.xml custom :
-				</paragraph>
+            </paragraph>
+            <liste sautDePagePdf="0">
+                <element>une datasource avec une base de données embarqué H2</element>
+                <element>l'utilisation du plugin maven-sql pour initialiser notre schéma (*)</element>
+            </liste>
+            <paragraph>
+                Le code se trouve dans le répertoire <link href="https://github.com/hlassiege/maven-tomcat-jetty/tree/master/3.developpez-webapp-jndi"><b>3.developpez-webapp-jndi</b></link>
+            </paragraph>
+            <imgtext type="info">
+                (*) Si vous utilisez JPA avec Hibernate vous pouvez aussi créer votre schéma automatiquement via la directive create-schema. Nous ne verrons pas ce point ici ce qui nous permet de continuer à illustrer des plugins maven.
+            </imgtext>
+            <section id="IV-A">
+                <title>Tomcat</title>
+                <paragraph>
+                    Tout d'abord nous allons configurer le plugin maven pour utiliser un fichier server.xml custom :
+                </paragraph>
 <code langage="xml"><![CDATA[
- <configuration>
+      <configuration>
          <serverXml>target/test-classes/server.xml</serverXml>
      </configuration>
 ]]></code>
-				<paragraph>
-					Le fichier server.xml : sur github (TODO)
-				</paragraph>
-				<paragraph>
-					On notera qu'il utilise des placeholders
-				</paragraph>
-				<liste sautDePagePdf="0">
-					<element>${project.artifactId}</element>
-					<element>${project.build.finalName}</element>
-					<element>${project.build.directory}</element>
-				</liste>
-				<paragraph>
-					On veut en effet éviter d'avoir des chemins en dur vers le fichier war de notre application (et aussi pour respecter le principe DRY et ne pas dupliquer des informations présentes dans le POM).
-Cependant cela oblige à utiliser le filtrage de vos ressources de tests avec Maven:
-				</paragraph>
+                <paragraph>
+                    Le fichier <link href="https://github.com/hlassiege/maven-tomcat-jetty/blob/master/3.developpez-webapp-jndi/src/test/resources/server.xml">server.xml</link> :
+                </paragraph>
 <code langage="xml"><![CDATA[
-  <testResources>
+<Server port="8005" shutdown="SHUTDOWN">
+    <GlobalNamingResources>
+        <!-- Used by Manager webapp -->
+        <Resource name="UserDatabase" auth="Container"
+                  type="org.apache.catalina.UserDatabase" description="User database that can be updated and saved"
+                  factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+                  pathname="conf/tomcat-users.xml" />
+        <Resource name="jdbc/myDb" auth="Container"
+                  type="javax.sql.DataSource" driverClassName="org.h2.Driver"
+                  url="jdbc:h2:target/data;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"
+                  username="sa" password="sa" maxActive="10" maxIdle="2"
+                />
+
+    </GlobalNamingResources>
+    <Service name="Catalina">
+        <Connector port="8080" protocol="HTTP/1.1"
+                   connectionTimeout="20000" />
+
+        <Engine name="Catalina" defaultHost="localhost">
+            <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+                   resourceName="UserDatabase" />
+            <Host appBase="webapps" autoDeploy="false" deployXML="true" name="localhost">
+                <Context cachingAllowed="true" cookies="true" crossContext="false"
+                         displayName="${project.artifactId}"
+                         docBase="${project.build.directory}\${project.build.finalName}"
+                         path="/${project.artifactId}"
+                         privileged="false" reloadable="false" swallowOutput="false"
+                         useNaming="true">
+                    <ResourceLink global="jdbc/myDb" name="jdbc/myDb" type="javax.sql.DataSource" />
+                </Context>
+            </Host>
+        </Engine>
+    </Service>
+</Server>
+]]></code>
+                <paragraph>
+                    On notera qu'il utilise des placeholders
+                </paragraph>
+                <liste sautDePagePdf="0">
+                    <element>${project.artifactId}</element>
+                    <element>${project.build.finalName}</element>
+                    <element>${project.build.directory}</element>
+                </liste>
+                <paragraph>
+                    On veut en effet éviter d'avoir des chemins en dur vers le fichier war de notre application (et aussi pour respecter le principe DRY et ne pas dupliquer des informations présentes dans le POM).
+Cependant cela oblige à utiliser le filtrage de vos ressources de tests avec Maven dans le pom.xml :
+                </paragraph>
+<code langage="xml"><![CDATA[
+        <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
@@ -312,38 +373,39 @@ Cependant cela oblige à utiliser le filtrage de vos ressources de tests avec Mav
         </testResources>   
 
 ]]></code>
-				<paragraph>
-					Et dernier point, votre conteneur doit désormais connaître le driver de votre base de données. Dans un cas classique vous poseriez votre jar dans le répertoire common/lib de Tomcat. Ici vous allez utiliser le tag dependency lié au plugin :
-				</paragraph>
+                <paragraph>
+                    Et dernier point, votre conteneur doit désormais connaître le driver de votre base de données. 
+                    Dans un cas classique vous poseriez votre jar dans le répertoire lib de Tomcat. Ici vous allez utiliser le tag dependency lié au plugin :
+                </paragraph>
 <code langage="xml"><![CDATA[
-   <plugin>
+                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>2.0</version>
-                   	<dependencies>
-	                    <dependency>
-	                        <groupId>com.h2database</groupId>
-	                        <artifactId>h2</artifactId>
-	                        <version>1.3.170</version>
-	                    </dependency>
-                   	</dependencies>
+                       <dependencies>
+                        <dependency>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                            <version>1.3.170</version>
+                        </dependency>
+                       </dependencies>
                         [...]
                 </plugin>
 ]]></code>
-				<paragraph>
-					Si vous lancez <b>mvn tomcat7:run</b> et que vous vous connectez via jmx, vous constatez la présence de votre datasource dans l'annuaire jndi :
-				</paragraph>
-				<image src="./images/jconsolejndi.png"/>
-				<paragraph>
-					Par contre cela n'empêchera quelques logs désagréables au moment de l'invocation de votre service :
-				</paragraph>
-				<image src="./images/exceptionnodatasource.png"/>
-				<paragraph>
-					Normal, vous n'avez pas créé votre schéma. 
-Pour cela nous allons utiliser le plugin maven-sql qui va nous permettre d'executer des commandes SQL au démarrage de l'appli. Voici la configuration avec des commentaires pour expliquer :
-				</paragraph>
+                <paragraph>
+                    Si vous lancez <b>mvn tomcat7:run</b> et que vous vous connectez via jmx, vous constatez la présence de votre datasource dans l'annuaire jndi :
+                </paragraph>
+                <image src="./images/jconsolejndi.png"/>
+                <paragraph>
+                    Par contre cela n'empêchera quelques logs désagréables au moment de l'invocation de votre service :
+                </paragraph>
+                <image src="./images/exceptionnodatasource.png"/>
+                <paragraph>
+                    Normal, vous n'avez pas créé votre schéma. 
+Pour cela nous allons utiliser le plugin <link href="http://mojo.codehaus.org/sql-maven-plugin/">maven-sql</link> qui va nous permettre d'executer des commandes SQL au démarrage de l'appli. Voici la configuration avec des commentaires pour expliquer :
+                </paragraph>
 <code langage="xml"><![CDATA[
-<plugin>
+               <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
                 <version>1.5</version>
@@ -380,24 +442,42 @@ Pour cela nous allons utiliser le plugin maven-sql qui va nous permettre d'execu
                 </executions>
             </plugin>
 ]]></code>
-				
-				<paragraph>
-					Voila. Désormais vous pouvez lancer votre application avec mvn tomcat7:run et une datasource jndi accessible dans votre application.
-				</paragraph>
-				
-				
-			</section>
-				<section id="IV-B">
-					<title>Jetty</title>
-				<paragraph>
-					Avec Jetty les étapes sont relativements semblables.
-Tout d'abord nous crééons un fichiers qui contient la définition de la datasource : src/test/resources/jetty-ds.xml (TODO)
-				</paragraph>
-				<paragraph>
-					Puis nous faisons référence à cette datasource dans le pom.xml
-				</paragraph>
+                
+                <paragraph>
+                    Voila. Désormais vous pouvez lancer votre application avec mvn tomcat7:run et une datasource jndi accessible dans votre application.
+                </paragraph>
+                
+                
+            </section>
+                <section id="IV-B">
+                    <title>Jetty</title>
+                <paragraph>
+                    Avec Jetty les étapes sont relativements semblables.
+Tout d'abord nous crééons un fichiers qui contient la définition de la datasource : <link href="https://github.com/hlassiege/maven-tomcat-jetty/blob/master/3.developpez-webapp-jndi/src/test/resources/jetty-ds.xml">jetty-ds.xml</link> 
+                </paragraph>
 <code langage="xml"><![CDATA[
- <plugin>
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure id="DS" class="org.eclipse.jetty.webapp.WebAppContext">
+    <New class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg><Ref id="DS"/></Arg>
+        <Arg>jdbc/myDb</Arg>
+        <Arg>
+            <New class="org.h2.jdbcx.JdbcDataSource">
+                <Set name="uRL">jdbc:h2:target/data;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;</Set>
+                <Set name="user">sa</Set>
+                <Set name="password">sa</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>
+]]></code>
+                
+                <paragraph>
+                    Puis nous faisons référence à cette datasource dans le pom.xml
+                </paragraph>
+<code langage="xml"><![CDATA[
+              <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.5.v20120716</version>
@@ -415,72 +495,73 @@ Tout d'abord nous crééons un fichiers qui contient la définition de la datasourc
                 </dependencies>
             </plugin>
 ]]></code>
-				<imgtext type="warning">
-					Le lecteur averti aura remarqué en executant <b>mvn jetty:run</b> que l'exemple ne fonctionne pas et que l'on obtient l'erreur suivante :
-org.h2.jdbc.JdbcSQLException: Database may be already in use: "Locked by another process". Possible solutions: close all other connection(s); use the server mode [90020-170]
-Effectivement après pas mal de tentatives je n'ai pas réussi à faire fonctionner H2 et le plugin jetty ensemble. Cependant le code source ainsi que l'article sont disponibles sous github donc n'hésitez pas si vous parvenez à trouver la solution à faire un pull-request ;)
-				</imgtext>
+                <imgtext type="warning">
+                    Le lecteur averti aura remarqué en executant <b>mvn jetty:run</b> 
+                    que l'exemple ne fonctionne pas et que l'on obtient l'erreur suivante :
+<b>org.h2.jdbc.JdbcSQLException: Database may be already in use: "Locked by another process". Possible solutions: close all other connection(s); use the server mode [90020-170]</b>
+Effectivement après pas mal de tentatives je n'ai pas réussi à faire fonctionner H2 et le plugin Jetty ensemble. Cependant le code source ainsi que l'article sont disponibles sous github donc n'hésitez pas si vous parvenez à trouver la solution à faire un pull-request ;)
+                </imgtext>
 
-				
-				</section>
-			
-			
-			</section>
-			<section id="V">
-				<title>Déboguage</title>
-			<paragraph>
-				Etape inévitable en cours de développement, le déboguage avec un conteneur nécessite en général de rajouter des options de lancement dans les propriétés systèmes utilisé au lancement. Les options en questions sont les suivantes :
-			</paragraph>
+                
+                </section>
+            
+            
+            </section>
+            <section id="V">
+                <title>Déboguage</title>
+            <paragraph>
+                Etape inévitable en cours de développement, le déboguage avec un conteneur nécessite en général de rajouter des options de lancement dans les propriétés systèmes utilisé au lancement. Les options en questions sont les suivantes :
+            </paragraph>
 <code langage="bash"><![CDATA[
 -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
 ]]></code>
-			<paragraph>
-				Et là, bonne nouvelle, pas besoin de modifier les scripts tomcat avec Maven, il vous suffit de lancer la commande habituelle mais avec le script mvnDebug et non mvn.
+            <paragraph>
+                Et là, bonne nouvelle, pas besoin de modifier les scripts Tomcat avec Maven, il vous suffit de lancer la commande habituelle mais avec le script mvnDebug et non mvn.
 mvnDebug est souvent oublié, il s'agit du script de lancement de maven avec les bonnes propriétés de déboguage déjà positionnées.
-			</paragraph>
-			<paragraph>
-				Récapitulons, si je veux lancer mon appli en debug :
-			</paragraph>
-			<paragraph>
-			<b>mvnDebug tomcat7:run</b> ou <b>mvn jetty:run</b>
-			</paragraph>
-			<paragraph>
-				Puis dans Eclipse : 
-			</paragraph>
-			<liste sautDePagePdf="0">
-				<element>Debug As </element>
-				<element>=> run configurations </element>
-				<element>=> créer une nouvelle configuration Remote Debug</element>
-				<element>choisir le projet et le port 8000 </element>
-				<element>cliquer sur Run</element>
-			</liste>
-			</section>
-			<section id="VI">
-				<title>Jouez vos tests d'intégration</title>
-			<paragraph>
-				Vous avez l'habitude de faire des tests unitaires ? C'est très bien, je vous en félicite.
+            </paragraph>
+            <paragraph>
+                Récapitulons, si je veux lancer mon appli en debug :
+            </paragraph>
+            <paragraph>
+            <b>mvnDebug tomcat7:run</b> ou <b>mvnDebug jetty:run</b>
+            </paragraph>
+            <paragraph>
+                Puis dans Eclipse : 
+            </paragraph>
+            <liste sautDePagePdf="0">
+                <element>Debug As </element>
+                <element>=> run configurations </element>
+                <element>=> créer une nouvelle configuration Remote Debug</element>
+                <element>choisir le projet et le port 8000 </element>
+                <element>cliquer sur Run</element>
+            </liste>
+            </section>
+            <section id="VI">
+                <title>Jouez vos tests d'intégration</title>
+            <paragraph>
+                Vous avez l'habitude de faire des tests unitaires ? C'est très bien, je vous en félicite.
 Mais testez-vous ensuite vos services sur Tomcat en intégration continue ?
-			</paragraph>
-			<paragraph>
-				Bien souvent une fois les tests unitaires passés on voit le schéma suivant :
-			</paragraph>
-			<liste sautDePagePdf="0">
-				<element>packaging de l'application au format war</element>
-				<element>installation manuelle</element>
-				<element>test manuel par une équipe de QA sur le war déployé</element>
-			</liste>
-			<paragraph>
-				Et pourquoi ne pas automatiser tout ça et le lancer à chaque build ? (*)
-			</paragraph>
-			<imgtext type="idea">
-				(*) En pratique les tests d'intégration peuvent prendre du temps. Pour éviter de casser votre belle dynamique de test avec des feedbacks rapides vous pouvez aussi splitter TU et TI. Les tests d'intégration étant joués à part permettant aux TU de renvoyer plus rapidement un résultat
-			</imgtext>
-			<paragraph>
-				Pour cela nous allons utiliser tout d'abord un plugin maven qui va déjà nous permettre de configurer la phase integration-test pour lancer tous les tests de nom :
-**/IT*.java, **/*IT.java, and **/*ITCase.java
-			</paragraph>
+            </paragraph>
+            <paragraph>
+                Bien souvent une fois les tests unitaires passés on voit le schéma suivant :
+            </paragraph>
+            <liste sautDePagePdf="0">
+                <element>packaging de l'application au format war</element>
+                <element>installation manuelle</element>
+                <element>test manuel par une équipe de QA sur le war déployé</element>
+            </liste>
+            <paragraph>
+                Et pourquoi ne pas automatiser tout ça et le lancer à chaque build ? (*)
+            </paragraph>
+            <imgtext type="idea">
+                (*) En pratique les tests d'intégration peuvent prendre du temps. Pour éviter de casser votre belle dynamique de test avec des feedbacks rapides vous pouvez aussi splitter TU et TI. Les tests d'intégration étant joués à part permettant aux TU de renvoyer plus rapidement un résultat
+            </imgtext>
+            <paragraph>
+                Pour cela nous allons utiliser tout d'abord un plugin maven qui va déjà nous permettre de configurer la phase integration-test pour lancer tous les tests de nom :
+**/IT*.java, **/*IT.java, et **/*ITCase.java
+            </paragraph>
 <code langage="xml"><![CDATA[
-  <plugin>
+             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.13</version>
@@ -504,19 +585,19 @@ Mais testez-vous ensuite vos services sur Tomcat en intégration continue ?
                 </executions>
             </plugin>
 ]]></code>
-			<paragraph>
-				Ensuite nous allons configurer les plugin tomcat et jetty pour démarrer avant les tests d'intégration.
-			</paragraph>
-			<imgtext type="warning">
-				Pour être capable de conserver les configurations jetty et tomcat dans le même pom j'ai du utiliser des profiles maven avant de conserver le choix du container utilisé en test d'intégration. L'utilisation de profil n'est pas obligatoire, elle ne le devient que si vous tenez à laisser le choix d'utilisation des deux.
-			</imgtext>
-			<paragraph>
-				Les deux plugins utilisent la même méthode, il faut se binder sur les phases d'intégration pour démarrer le conteneur avant les tests et l'éteindre ensuite. 
-			</paragraph>
-			<section id="VI-A">
-				<title>Tomcat</title>
+            <paragraph>
+                Ensuite nous allons configurer les plugin Tomcat et Jetty pour démarrer avant les tests d'intégration.
+            </paragraph>
+            <imgtext type="warning">
+                Pour être capable de conserver les configurations Jetty et Tomcat dans le même pom j'ai du utiliser des profiles maven afin de conserver le choix du container utilisé en test d'intégration. L'utilisation de profil n'est pas obligatoire, elle ne le devient que si vous tenez à laisser le choix d'utilisation des deux.
+            </imgtext>
+            <paragraph>
+                Les deux plugins utilisent la même méthode, il faut se binder sur les phases d'intégration pour démarrer le conteneur avant les tests et l'éteindre ensuite. 
+            </paragraph>
+            <section id="VI-A">
+                <title>Tomcat</title>
 <code langage="xml"><![CDATA[
- <plugin>
+                   <plugin>
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <executions>
@@ -537,11 +618,11 @@ Mais testez-vous ensuite vos services sur Tomcat en intégration continue ?
                         </executions>
                     </plugin>
 ]]></code>
-			</section>
-				<section id="VI-B">
-					<title>Jetty</title>
+            </section>
+                <section id="VI-B">
+                    <title>Jetty</title>
 <code langage="xml"><![CDATA[
-  <plugin>
+                 <plugin>
                     <groupId>org.mortbay.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
                     <executions>
@@ -562,51 +643,51 @@ Mais testez-vous ensuite vos services sur Tomcat en intégration continue ?
                     </executions>
                 </plugin>
 ]]></code>
-				<paragraph>
-					A noter cependant pour pouvoir appeler le goal stop sur le plugin jetty vous devrez avoir ajouté les clés suivantes dans la configuration du plugin :
-				</paragraph>
+                <paragraph>
+                    A noter cependant pour pouvoir appeler le goal stop sur le plugin Jetty vous devrez avoir ajouté les clés suivantes dans la configuration du plugin :
+                </paragraph>
 <code langage="xml"><![CDATA[
    <stopKey>key</stopKey>
-                  <stopPort>8087</stopPort>
+   <stopPort>8087</stopPort>
 ]]></code>
-				<paragraph>
-					Et voilà, désormais si vous lancez le build avec la commande :
-mvn verify -Pjetty ou mvn verify -Ptomcat
+                <paragraph>
+                    Et voilà, désormais si vous lancez le build avec la commande :
+<b>mvn verify -Pjetty</b> ou <b>mvn verify -Ptomcat</b>
 vous devriez voir le démarrage de votre serveur avant la phase de tests d'intégration.
-				</paragraph>
-				<paragraph>
-					Ici avec jetty :
-				</paragraph>
-				<image src="./images/jettystartti.png"/>
-				<paragraph>
-					A vous de jouer maintenant pour coder un test d'intégration qui profite de cette astuce
-				</paragraph>
-				
-				
+                </paragraph>
+                <paragraph>
+                    Ici avec Jetty :
+                </paragraph>
+                <image src="./images/jettystartti.png"/>
+                <paragraph>
+                    A vous de jouer maintenant pour coder un test d'intégration qui profite de cette astuce
+                </paragraph>
+                
+                
 
-				</section>
-			
-			
-			</section>
-			<section id="VII">
-				<title>Précompilation des Jsp</title>
-			<paragraph>
-				Mettons cette fois que votre objectif ne soit plus uniquement le développement mais le lancement de votre application en production. Voici quelques astuces intéressantes. 
-			</paragraph>
-				<paragraph>
-					Vous l'aurez sans doute remarqué, la première fois que vous arrivez sur une page après avoir relancé votre tomcat celle ci est plus lente à s'afficher. C'est parce que tomcat compile vos jsp en servlet lors de leur première visite.
+                </section>
+            
+            
+            </section>
+            <section id="VII">
+                <title>Précompilation des Jsp</title>
+            <paragraph>
+                Mettons cette fois que votre objectif ne soit plus uniquement le développement mais le lancement de votre application en production. Voici quelques astuces intéressantes. 
+            </paragraph>
+                <paragraph>
+                    Vous l'aurez sans doute remarqué, la première fois que vous arrivez sur une page après avoir relancé votre Tomcat celle ci est plus lente à s'afficher. C'est parce que Tomcat compile vos jsp en servlet lors de leur première visite.
 En plus d'être relativement désagréable pour vos utilisateurs, c'est aussi un peu tardif pour découvrir des erreurs de compilations vous ne trouvez pas ?
-				</paragraph>
-				<paragraph>
-					Application du principe <link href="http://en.wikipedia.org/wiki/Fail-fast">fail fast</link>, on va mettre en place la précompilation des jsp.
-				</paragraph>
-				<section id="VII-A">
-					<title>Tomcat</title>
-					<paragraph>
-						Première étape, déclarez le plugin de compilation de jsp :
-					</paragraph>
+                </paragraph>
+                <paragraph>
+                    Application du principe <link href="http://en.wikipedia.org/wiki/Fail-fast">fail fast</link>, on va mettre en place la précompilation des jsp.
+                </paragraph>
+                <section id="VII-A">
+                    <title>Tomcat</title>
+                    <paragraph>
+                        Première étape, déclarez le plugin de compilation de jsp :
+                    </paragraph>
 <code langage="xml"><![CDATA[
-  <plugin>
+          <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>jspc-maven-plugin</artifactId>
               <executions>
@@ -619,23 +700,23 @@ En plus d'être relativement désagréable pour vos utilisateurs, c'est aussi un pe
               </executions>
           </plugin>
 ]]></code>
-					<paragraph>
-						Si vous compilez votre application vous remarquerez que désormais les jsp sont compilés pendant la phase de compilation :
-					</paragraph>
-					<image src="./images/compilationjsp.png"/>
-					<paragraph>
-						Cette compilation a pour but de précompiler chaque JSP en une classe de servlet.
+                    <paragraph>
+                        Si vous compilez votre application vous remarquerez que désormais les jsp sont compilés pendant la phase de compilation :
+                    </paragraph>
+                    <image src="./images/compilationjsp.png"/>
+                    <paragraph>
+                        Cette étape a pour but de précompiler chaque JSP en une classe de servlet.
 Les résultats de cette opération sont : 
-					</paragraph>
-					<liste sautDePagePdf="0">
-						<element>l'ensemble de vos servlet compilés dans le répertoire target/classes</element>
-						<element>un fichier jspweb.xml qui dérive de votre fichier web.xml initial et qui contient en plus la déclaration de chaque servlet</element>
-					</liste>
-					<paragraph>
-						Il faut donc modifier la configuration du plugin war pour qu'il utilise le fichier jspweb.xml construit par le plugin de compilation des jsp.
-					</paragraph>
+                    </paragraph>
+                    <liste sautDePagePdf="0">
+                        <element>l'ensemble de vos servlet compilés dans le répertoire target/classes</element>
+                        <element>un fichier jspweb.xml qui dérive de votre fichier web.xml initial et qui contient en plus la déclaration de chaque servlet</element>
+                    </liste>
+                    <paragraph>
+                        Il faut donc modifier la configuration du plugin war pour qu'il utilise le fichier jspweb.xml construit par le plugin de compilation des jsp.
+                    </paragraph>
 <code langage="xml"><![CDATA[
-    <plugin>
+                        <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-war-plugin</artifactId>
                             <version>2.0</version>
@@ -644,56 +725,80 @@ Les résultats de cette opération sont :
                             </configuration>
                         </plugin>
 ]]></code>
-					<paragraph>
-						Je vous laisse observer le contenu du war afin de vérifier qu'il contient bien la servlet déjà compilé et le fichier web.xml avec la déclaration attendue.
-					</paragraph>
-				</section>
-					<section id="VII-B">
-						<title>Jetty</title>
-					<paragraph>
-						Le principe pour Jetty est identique, vous pouvez donc vous reporter au paragraphe précédent pour comprendre le fonctionnement.
-					</paragraph>
-					<paragraph>
-						Spécifiquement, voici la configuration du plugin de compilation :
-					</paragraph>
+                    <paragraph>
+                        Je vous laisse observer le contenu du war afin de vérifier qu'il contient bien la servlet déjà compilé et le fichier web.xml avec la déclaration attendue.
+                    </paragraph>
+                </section>
+                    <section id="VII-B">
+                        <title>Jetty</title>
+                    <paragraph>
+                        Le principe pour Jetty est identique, vous pouvez donc vous reporter au paragraphe précédent pour comprendre le fonctionnement.
+                    </paragraph>
+                    <paragraph>
+                        Spécifiquement, voici la configuration du plugin de compilation :
+                    </paragraph>
 <code langage="xml"><![CDATA[
-<plugin>
-		  <groupId>org.mortbay.jetty</groupId>
-		  <artifactId>jetty-jspc-maven-plugin</artifactId>
-		  <version>8.1.5.v20120716</version>
-		  <executions>
-		    <execution>
-		      <id>jspc</id>
-		      <goals>
-		        <goal>jspc</goal>
-		      </goals>
-		    </execution>
-		  </executions>
-		</plugin>
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-jspc-maven-plugin</artifactId>
+          <version>8.1.5.v20120716</version>
+          <executions>
+            <execution>
+              <id>jspc</id>
+              <goals>
+                <goal>jspc</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 ]]></code>
-					<paragraph>
-						Et le plugin war modifié (attention, le plugin jetty créé un fichier web.xml et le plugin tomcat créé un fichier jspweb.xml !!)
-					</paragraph>
+                    <paragraph>
+                        Et le plugin war modifié (attention, le plugin Jetty créé un fichier web.xml et le plugin Tomcat créé un fichier jspweb.xml !!)
+                    </paragraph>
 <code langage="xml"><![CDATA[
-<plugin>
-		  <groupId>org.apache.maven.plugins</groupId>
-		  <artifactId>maven-war-plugin</artifactId>
-		  <version>2.0</version>
-		  <configuration>
-		    <webXml>${basedir}/target/web.xml</webXml>
-		  </configuration>
-		</plugin>  
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.0</version>
+          <configuration>
+            <webXml>${basedir}/target/web.xml</webXml>
+          </configuration>
+        </plugin>  
 ]]></code>
-					<imgtext type="idea">
-						Astuce : Cette étape étant couteuse en temps, vous pouvez la déplacer dans un profile pour ne pas la jouer en phase de développement.
-					</imgtext>
+                    <imgtext type="idea">
+                        Astuce : Cette étape étant couteuse en temps, vous pouvez la déplacer dans un profile pour ne pas la jouer en phase de développement.
+                    </imgtext>
 
-					
-					</section>
-				
-			</section>
+                    
+                    </section>
+                
+            </section>
 
-			
+        <section id="VIII">
+            <title>Conclusion</title>
+            <paragraph>
+                Voilà, nous avons fait le tour de quelques plugins Maven nécessaires pour améliorer notre productivité. 
+            </paragraph>
+            <liste sautDePagePdf="0">
+                <element>Nous avons mis en oeuvre le "checkout and run" afin que chaque nouvel entrant sur le projet puisse rapidement démarrer</element>
+                <element>Nous avons centralisé des configurations dans notre pom.xml pour éviter à chacun de refaire son intégration et pour éviter aussi le syndrome "homme clé", le type seul capable de monter votre environnement de travail</element>
+                <element>Nous savons comment déboguer, jouer nos tests</element>
+                <element>Et nous avons mêmes vu une astuce bien pratique pour nos performances en production avec la précompilation des jsp</element>
+            </liste>
+            <paragraph>
+                Cet article sera suivi par d'autres dans la même veine expliquant notamment comment faire du soa ou du dev javascript avec maven. Stay tuned.
+            </paragraph>
+            
+        </section>
+        <section id="IX">
+            <title>Remerciements</title>
+            <paragraph>
+                Et pour vraiment conclure je tiens à remercier keulkeul pour sa relecture technique
+                ainsi que XXX pour la relecture orthographique.
+            </paragraph>
+            
+        </section>
+            
     
   </summary>
 </document>
