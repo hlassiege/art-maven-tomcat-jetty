@@ -38,7 +38,7 @@
   </authorDescriptions>
   <synopsis>
     <paragraph>Cet article fait partie d'une série d'articles autour de l'industrialisation du développement Java avec Maven. Dans cette série je m'attarderai sur les astuces et bonnes pratiques permettant de gagner du temps et de standardiser vos développements. De plus, tout <link href="https://github.com/hlassiege/maven-tomcat-jetty">le code de l'article</link> ainsi que <link href="https://github.com/hlassiege/art-maven-tomcat-jetty">l'article lui-même</link> sont disponibles sous GitHub pour permettre à chacun de contribuer à tenir ces articles à jour. </paragraph>
-    <paragraph>Pour cet article je vous propose de faire le point sur les plugins permettant de jouer avec Tomcat et Jetty. Ces plugins très pratiques vous permettront : </paragraph>
+    <paragraph>Pour cet article je vous propose de faire le point sur les plugins permettant de jouer avec Tomcat 7.x et Jetty 8.x. Ces plugins très pratiques vous permettront : </paragraph>
     <liste>
       <element>de démarrer un Tomcat/Jetty sans effort en phase de développement ;</element>
       <element>de configurer vos logs ;</element>
@@ -93,6 +93,12 @@
 mvn tomcat7:run ]]></code>
         <paragraph>Vous devriez obtenir le résultat suivant : </paragraph>
         <image align="center" src="./images/tomcatstart.png"/>
+				<imgtext type="info">
+					La commande <b>mvn tomcat7:run</b> invoque la phase mvn compile avant de s'exécuter 
+					elle-même. 
+					Cependant vous profitez de la compilation incrémentale de Maven et vous ne recompilerez pas l'ensemble du projet à chaque fois.
+				</imgtext>
+        
         <paragraph>Pour résumer, le conteneur Tomcat est automatiquement téléchargé puis démarré avec le contenu de votre application web. Le port par défaut est 8080 et le contexte correspond au nom de votre artefact, vous pouvez donc vous connecter sur : </paragraph>
         <paragraph><link href="http://localhost:8080/developpez-webapp/">http://localhost:8080/developpez-webapp/</link> </paragraph>
         <paragraph>Ici rien de magique, l'application est juste constituée d'un fichier HTML statique. </paragraph>
@@ -116,9 +122,14 @@ mvn jetty:run]]></code>
     </section>
     <section id="III">
       <title>Les logs</title>
-      <paragraph>Un des aspects les plus importants d'une application c'est qu'elle nous dise ce qu'elle fait. </paragraph>
-      <paragraph>Disons que vous ayez vos habitudes avec <link href="http://logback.qos.ch/">logback</link> et que vous souhaitiez l'utiliser ici. </paragraph>
-      <paragraph>Pour que ce soit intéressant nous allons ajouter un service <link href="http://fr.wikipedia.org/wiki/Representational_State_Transfer">REST</link> construit avec JAX-RS sinon en dehors des logs de Tomcat nous n'allons pas avoir beaucoup à dire. </paragraph>
+      <paragraph>Un des aspects les plus importants d'une application c'est qu'elle nous dise 
+	  ce qu'elle fait. </paragraph>
+      <paragraph>Disons que vous ayez vos habitudes avec 
+	  <link href="http://logback.qos.ch/">logback</link> et que vous souhaitiez l'utiliser ici. </paragraph>
+      <paragraph>Pour que ce soit intéressant nous allons ajouter un peu de code sinon par défaut nous n'aurions que les logs de démarrage de Tomcat/Jetty, ce qui diminue un peu l'intérêt de la démonstration. 
+      Nous allons donc ajouter un service <link href="http://fr.wikipedia.org/wiki/Representational_State_Transfer">REST</link> construit avec JAX-RS. 
+	  Ce code va faire appel à plusieurs librairies tierces : Spring, Jackson, CXF etc... et chacune de ces librairies va produire ses propres logs.
+	  </paragraph>
       <imgtext type="info">Note : pour créer mon « Hello World » j'ai utilisé la commande <b>mvn archetype:generate</b> une autre commande très utile pour démarrer avec un bon squelette d'application. </imgtext>
       <paragraph>Le code est présent dans le répertoire <link href="https://github.com/hlassiege/maven-tomcat-jetty/tree/master/2.developpez-webapp-jaxrs"><b>2.developpez-webapp-jaxrs</b></link> et nous ne décrirons pas l'application JAX-RS. </paragraph>
       <paragraph>Rajoutons les dépendances pour les logs : </paragraph>
@@ -377,7 +388,13 @@ mvn jetty:run]]></code>
       </liste>
       <paragraph>Et pourquoi ne pas automatiser tout ça et le lancer à chaque build ? (*) </paragraph>
       <imgtext type="idea">(*) En pratique les tests d'intégration peuvent prendre du temps. Pour éviter de casser votre belle dynamique de test avec des feedbacks rapides vous pouvez aussi splitter TU et TI. Les tests d'intégration étant joués à part permettent aux TU de renvoyer plus rapidement un résultat. </imgtext>
-      <paragraph>Pour cela nous allons utiliser tout d'abord un plugin maven qui va déjà nous permettre de configurer la phase integration-test pour lancer tous les tests de nom : **/IT*.java, **/*IT.java, et **/*ITCase.java </paragraph>
+      <paragraph>Pour cela nous allons utiliser le plugin <link href="http://maven.apache.org/surefire/maven-failsafe-plugin/">maven-failsafe</link> qui va  
+	  nous permettre de configurer la phase integration-test pour lancer tous les tests de nom : **/IT*.java, **/*IT.java, et **/*ITCase.java </paragraph>
+			<imgtext type="info">
+				Vous vous demandez la différence entre maven-surefire et maven-failsafe ? Dites vous que les deux jouent le même rôle, celui de lancer vos tests. 
+				Sauf que maven-failsafe utilise d'autres conventions de nommage pour les tests à lancer et vous facilite ainsi la séparation entre tests unitaires et tests d'intégration.
+			</imgtext>
+	  
       <code langage="xml"><![CDATA[
              <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -533,7 +550,18 @@ mvn jetty:run]]></code>
         <imgtext type="idea">Astuce : cette étape étant coûteuse en temps, vous pouvez la déplacer dans un profil pour ne pas la jouer en phase de développement. </imgtext>
       </section>
     </section>
-    <section id="VIII">
+			<section id="VIII">
+				<title>Ressources</title>
+			<liste sautDePagePdf="0">
+				<element>code de l'article sous github : <link href="https://github.com/hlassiege/maven-tomcat-jetty">https://github.com/hlassiege/maven-tomcat-jetty</link></element>
+				<element>l'article sous github : <link href="https://github.com/hlassiege/art-maven-tomcat-jetty">https://github.com/hlassiege/art-maven-tomcat-jetty</link></element>
+				<element>le très bon blog de Khan (jetoile) qui parle aussi de Maven : <link href="http://blog.jetoile.fr/">http://blog.jetoile.fr/</link></element>
+				<element>un article sur le débogage avec Eclipse et une appli Java sur developpez.com : <link href="http://aldian.developpez.com/cours/le-debogage-en-java-javaee/">http://aldian.developpez.com/cours/le-debogage-en-java-javaee/</link> </element>
+			</liste>
+			
+			</section>
+    
+	<section id="IX">
       <title>Conclusion</title>
       <paragraph>Voilà, nous avons fait le tour de quelques plugins Maven nécessaires pour améliorer notre productivité. </paragraph>
       <liste>
@@ -544,7 +572,7 @@ mvn jetty:run]]></code>
       </liste>
       <paragraph>Cet article sera suivi par d'autres dans la même veine expliquant notamment comment faire du SOA ou du développement JavaScript avec Maven. <i>Stay tuned</i>. </paragraph>
     </section>
-    <section id="IX">
+    <section id="X">
       <title>Remerciements</title>
       <paragraph>Et pour vraiment conclure je tiens à remercier <link href="http://www.developpez.net/forums/u69211/keulkeul/">keulkeul</link>, <link href="http://www.developpez.net/forums/u192017/thierryler/">thierryler</link> et <link href="http://blog.jetoile.fr/">Khanh Tuong Maudoux</link> pour leurs relectures technique ainsi que <link href="http://www.developpez.net/forums/u283256/f-leb/">f-leb</link> pour la relecture orthographique. </paragraph>
     </section>
