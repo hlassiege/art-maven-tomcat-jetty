@@ -76,6 +76,8 @@
       <paragraph>Une autre variante consiste à utiliser le plugin WTP d'Eclipse. Là encore, il y a un effort de configuration à refaire sur chaque poste. </paragraph>
       <paragraph>Ici nous allons insister sur un principe simple et pourtant fondamental en informatique : <link href="http://fr.wikipedia.org/wiki/Ne_vous_répétez_pas">DRY</link> (<i>Don't Repeat Yourself</i>) Si vous devez reconfigurer votre environnement de travail pour chaque nouvel arrivant, c'est de la perte de temps. </paragraph>
       <imgtext type="info">Checkout and Run : notre objectif c'est qu'un nouvel arrivant sur un projet n'ait qu'a cloner le repository et puisse être tout de suite opérationnel. </imgtext>
+      <imgtext type="info">Si on souhaite accélérer son cycle de développement et éviter les redémarrages trop fréquents, on pourrait aussi utiliser <link href="http://zeroturnaround.com/software/jrebel/download/">JRebel</link>. Il existe d'ailleurs un plugin Maven pour créer votre fichier rebel.xml à partir de votre pom : <link href="http://zeroturnaround.com/software/jrebel/maven/">http://zeroturnaround.com/software/jrebel/maven/</link>. 
+			Cette approche ne s'oppose pas à celle que nous allons détailler ici. </imgtext>
     </section>
     <section id="II">
       <title>Configuration de base</title>
@@ -204,61 +206,22 @@ mvn jetty:run]]></code>
       <imgtext type="info">(*) Si vous utilisez JPA avec Hibernate vous pouvez aussi créer votre schéma automatiquement via la directive create-schema. Nous ne verrons pas ce point ici ce qui nous permet de continuer à illustrer des plugins maven. </imgtext>
       <section id="IV-A">
         <title>Tomcat</title>
-        <paragraph>Tout d'abord nous allons configurer le plugin maven pour utiliser un fichier server.xml custom : </paragraph>
+        <paragraph>Tout d'abord nous allons configurer le plugin maven pour utiliser un fichier context.xml custom : </paragraph>
         <code langage="xml"><![CDATA[
       <configuration>
-         <serverXml>target/test-classes/server.xml</serverXml>
+         <contextFile>src/test/resources/context.xml</contextFile>
      </configuration>]]></code>
-        <paragraph>Le fichier <link href="https://github.com/hlassiege/maven-tomcat-jetty/blob/master/3.developpez-webapp-jndi/src/test/resources/server.xml">server.xml</link> : </paragraph>
+        <paragraph>Le fichier <link href="https://github.com/hlassiege/maven-tomcat-jetty/blob/master/3.developpez-webapp-jndi/src/test/resources/context.xml">context.xml</link> : </paragraph>
         <code langage="xml"><![CDATA[
-<Server port="8005" shutdown="SHUTDOWN">
-    <GlobalNamingResources>
-        <!-- Used by Manager webapp -->
-        <Resource name="UserDatabase" auth="Container"
-                  type="org.apache.catalina.UserDatabase" description="User database that can be updated and saved"
-                  factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
-                  pathname="conf/tomcat-users.xml" />
-        <Resource name="jdbc/myDb" auth="Container"
-                  type="javax.sql.DataSource" driverClassName="org.h2.Driver"
-                  url="jdbc:h2:target/data;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"
-                  username="sa" password="sa" maxActive="10" maxIdle="2"
-                />
-
-    </GlobalNamingResources>
-    <Service name="Catalina">
-        <Connector port="8080" protocol="HTTP/1.1"
-                   connectionTimeout="20000" />
-
-        <Engine name="Catalina" defaultHost="localhost">
-            <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-                   resourceName="UserDatabase" />
-            <Host appBase="webapps" autoDeploy="false" deployXML="true" name="localhost">
-                <Context cachingAllowed="true" cookies="true" crossContext="false"
-                         displayName="${project.artifactId}"
-                         docBase="${project.build.directory}\${project.build.finalName}"
-                         path="/${project.artifactId}"
-                         privileged="false" reloadable="false" swallowOutput="false"
-                         useNaming="true">
-                    <ResourceLink global="jdbc/myDb" name="jdbc/myDb" type="javax.sql.DataSource" />
-                </Context>
-            </Host>
-        </Engine>
-    </Service>
-</Server>]]></code>
-        <paragraph>On notera qu'il utilise des placeholders : </paragraph>
-        <liste>
-          <element>${project.artifactId}</element>
-          <element>${project.build.finalName}</element>
-          <element>${project.build.directory}</element>
-        </liste>
-        <paragraph>On veut en effet éviter d'avoir des chemins en dur vers le fichier war de notre application (et aussi pour respecter le principe DRY et ne pas dupliquer des informations présentes dans le POM). Cependant cela oblige à utiliser le filtrage de vos ressources de tests avec Maven dans le pom.xml : </paragraph>
-        <code langage="xml"><![CDATA[
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>   ]]></code>
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/myDb" auth="Container"
+              type="javax.sql.DataSource" driverClassName="org.h2.Driver"
+              url="jdbc:h2:target/data;MODE=PostgreSQL;DB_CLOSE_DELAY=-1"
+              username="sa" password="sa" maxActive="10" maxIdle="2"
+            />
+    <ResourceLink global="jdbc/myDb" name="jdbc/myDb" type="javax.sql.DataSource" />
+</Context>]]></code>
         <paragraph>Et dernier point, votre conteneur doit désormais connaître le driver de votre base de données. Dans un cas classique vous poseriez votre jar dans le répertoire lib de Tomcat. Ici vous allez utiliser le tag dependency lié au plugin : </paragraph>
         <code langage="xml"><![CDATA[
                  <plugin>
